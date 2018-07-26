@@ -1,19 +1,19 @@
+/**
+ * 整合所有子路由
+ */
+
 const router = require('koa-router')()
 
-router.get('/', async (ctx, next) => {
-  await ctx.render('index', {
-    title: 'Hello Koa 2!'
-  })
-})
+const home = require('./home')
+const wechat = require('./wechat')
+const user = require('./user')
+const error = require('./error')
 
-router.get('/string', async (ctx, next) => {
-  ctx.body = 'koa2 string'
-})
+router.use('/', home.routes(), home.allowedMethods())
+router.use('/user', user.routes(), user.allowedMethods())
+router.use('/wechat', wechat.routes(), wechat.allowedMethods())
 
-router.get('/json', async (ctx, next) => {
-  ctx.body = {
-    title: 'koa2 json'
-  }
-})
+//捕获所有的404
+router.use('*', error.routes(), error.allowedMethods())
 
 module.exports = router
