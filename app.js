@@ -5,11 +5,29 @@ const json = require('koa-json')
 const onerror = require('koa-onerror')
 const bodyparser = require('koa-bodyparser')
 const logger = require('koa-logger')
+const MysqlStore = require('koa-mysql-session');
+var session = require('koa-session-minimal');
+
 
 const route = require('./routes/index')
+const config = require('./config')
 
 // error handler
 onerror(app)
+
+// session存储配置
+const sessionMysqlConfig= {
+  user: config.database.USERNAME,
+  password: config.database.PASSWORD,
+  database: config.database.DATABASE,
+  host: config.database.HOST,
+}
+
+// 配置session中间件
+app.use(session({
+  key: 'USER_SID',
+  store: new MysqlStore(sessionMysqlConfig)
+}))
 
 // middlewares
 app.use(bodyparser({
