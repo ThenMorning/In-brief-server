@@ -9,7 +9,6 @@ module.exports = async (user) => {
     user.city+"','"+
     user.province+"','"+
     user.country+"','"+
-    user.gender+"')"
-    let result = await dbUtils.query( _sql );
-    return result.insertId;
+    user.gender+"')";
+    return await dbUtils.query( _sql )
 }

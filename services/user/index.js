@@ -1,4 +1,4 @@
 const user = {};
 user.findUserByOpenId = require('./findUserByOpenId')
-user.insertuser = require('./insertUser')
+user.insertUser = require('./insertUser')
 module.exports = user

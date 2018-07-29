@@ -16,22 +16,33 @@ const config = require('./config')
 onerror(app)
 
 // session存储配置
-const sessionMysqlConfig= {
+const sessionMysqlConfig = {
   user: config.database.USERNAME,
   password: config.database.PASSWORD,
   database: config.database.DATABASE,
   host: config.database.HOST,
 }
 
+//存放sessionId的cookie配置
+
+let cookie = { // 与 cookie 相关的配置
+  domain: 'localhost', // 写 cookie 所在的域名
+  path: '/', // 写 cookie 所在的路径
+  maxAge: 1000 * 30, // cookie 有效时长
+  httpOnly: true, // 是否只用于 http 请求中获取
+  overwrite: false // 是否允许重写
+}
+
 // 配置session中间件
 app.use(session({
-  key: 'USER_SID',
-  store: new MysqlStore(sessionMysqlConfig)
+  key: 'SESSION_ID',
+  store: new MysqlStore(sessionMysqlConfig),
+  cookie: cookie
 }))
 
 // middlewares
 app.use(bodyparser({
-  enableTypes:['json', 'form', 'text']
+  enableTypes: ['json', 'form', 'text']
 }))
 app.use(json())
 app.use(logger())
