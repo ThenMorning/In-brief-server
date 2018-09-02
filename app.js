@@ -9,6 +9,7 @@ const MysqlStore = require('koa-mysql-session');
 var session = require('koa-session-minimal');
 
 
+
 const route = require('./routes/index')
 const config = require('./config')
 
@@ -59,6 +60,7 @@ app.use(async (ctx, next) => {
   const ms = new Date() - start
   console.log(`${ctx.method} ${ctx.url} - ${ms}ms`)
 })
+
 
 // routes
 app.use(route.routes(), route.allowedMethods())

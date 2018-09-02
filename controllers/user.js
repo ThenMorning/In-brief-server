@@ -1,6 +1,7 @@
 const wechatService = require('../services/wechat/index')
 const userService = require('../services/user/index')
 const User = require('../models/User')
+const Result = require('../common/_result')
 
 const user = {};
 user.findUserByOpenId = async (ctx) => {
@@ -10,6 +11,8 @@ user.findUserByOpenId = async (ctx) => {
   let queryResult = await userService.findUserByOpenId(open_id);
   if (queryResult.length) {
     ctx.body = queryResult;
+    const result = new Result(1, queryResult, '')
+    ctx.body = result
     user_id = queryResult[0].user_id;
   } else {
     let user_name = ctx.request.body.name;
@@ -22,15 +25,14 @@ user.findUserByOpenId = async (ctx) => {
     let insertResult = await userService.insertUser(new_user)
     if (insertResult.affectedRows) {
       let queryResult = await userService.findUserByOpenId(open_id);
-      ctx.body = queryResult;
+      const result = new Result(1, queryResult, '')
+      ctx.body = result
       user_id = queryResult[0].user_id;
     } else {
       //创建用户失败
     }
   }
-  ctx.session = {
-    user_id: user_id
-  }
+  if(user_id) ctx.session.user_id = user_id;
 }
 
 module.exports = user
