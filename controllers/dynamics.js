@@ -6,29 +6,32 @@ const Result = require('../common/_result')
 const dynamics = {};
 dynamics.getAllDynamics = async (ctx) => {
     let allDynamics = await dynamicsService.getAllDynamics()
-    let dynamicsList = await Promise.all(allDynamics.map(async (dynamics) => {
-        let user = await userService.findUserByUserId(dynamics.user_id)
-        console.log(user)
-        return await generateDynamics(user)
-    }))
-    console.log(dynamicsList)
+    let dynamicsList = []
+    for (let dynamics of allDynamics) {
+        await userService.findUserByUserId(dynamics.user_id).then(async (res) => {
+            const _dynamics = await generateDynamics(res[0], dynamics)
+            dynamicsList.push(_dynamics)
+        })
+    }
     const result = new Result(1, dynamicsList, '')
     ctx.body = result
 }
 
-const generateDynamics = async (user) => {
-        let dynamicsEntity = new DynamicsEntity();
-        dynamicsEntity.setUserId(user.user_id)
-        dynamicsEntity.setUserName(user.user_name)
-        dynamicsEntity.setMotto(user.motto)
-        dynamicsEntity.setAvatarUrl(user.avatar_url)
-        dynamicsEntity.setLocation('')
-        dynamicsEntity.setGender(user.gender)
-        dynamicsEntity.setContent(dynamics.content)
-        dynamicsEntity.setLikeCount(dynamics.like_count)
-        dynamicsEntity.setUnlikeCount(dynamics.unlike_count)
-        dynamicsEntity.setCommentCount(dynamics.comment_count)
-        return dynamicsEntity
+
+const generateDynamics = async (user, dynamics) => {
+    let dynamicsEntity = new DynamicsEntity();
+    dynamicsEntity.setUserId(user.user_id)
+    dynamicsEntity.setUserName(user.user_name)
+    dynamicsEntity.setMotto(user.motto)
+    dynamicsEntity.setAvatarUrl(user.avatar_url)
+    dynamicsEntity.setLocation('')
+    dynamicsEntity.setGender(user.gender)
+    dynamicsEntity.setContent(dynamics.content)
+    dynamicsEntity.setLikeCount(dynamics.like_count)
+    dynamicsEntity.setUnlikeCount(dynamics.unlike_count)
+    dynamicsEntity.setCommentCount(dynamics.comment_count)
+    dynamicsEntity.setCreateTime(dynamics.create_time)
+    return dynamicsEntity
 }
 dynamics.insertDynamics = async (ctx) => {
     if (!ctx.session.user_id) {
@@ -41,7 +44,7 @@ dynamics.insertDynamics = async (ctx) => {
         dynamics.setUserId(ctx.session.user_id);
         dynamics.setContent(ctx.request.body.content);
         let queryResult = await dynamicsService.insertDynamics(dynamics)
-        const result = new Result(queryResult.insertId?1:0, {}, queryResult.insertId?'发布成功!':'发布失败!请重试!')
+        const result = new Result(queryResult.insertId ? 1 : 0, {}, queryResult.insertId ? '发布成功!' : '发布失败!请重试!')
         ctx.body = result
     }
 }

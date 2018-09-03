@@ -1,5 +1,5 @@
 class DynamicsEntity{
-    constructor(user_id,user_name,motto,avatar_url,gender,content,like_count,unlike_count,comment_count,location){
+    constructor(user_id,user_name,motto,avatar_url,gender,content,like_count,unlike_count,comment_count,location,create_time){
         this.user_id = user_id;
         this.user_name = user_name;
         this.motto = motto;
@@ -71,6 +71,12 @@ class DynamicsEntity{
     }
     getCommentCount(){
         return this.comment_count;
+    }
+    setCreateTime(create_time){
+        this.create_time = create_time;
+    }
+    getCreateTime(){
+        return this.create_time;
     }
     
 }
