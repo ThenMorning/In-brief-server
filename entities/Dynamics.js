@@ -1,5 +1,6 @@
 class DynamicsEntity{
-    constructor(user_id,user_name,motto,avatar_url,gender,content,like_count,unlike_count,comment_count,location,create_time,is_current_user_like){
+    constructor(dynamics_id,user_id,user_name,motto,avatar_url,gender,content,like_count,unlike_count,comment_count,location,create_time,is_current_user_like,comments){
+        this.dynamics_id = dynamics_id;
         this.user_id = user_id;
         this.user_name = user_name;
         this.motto = motto;
@@ -12,8 +13,15 @@ class DynamicsEntity{
         this.comment_count = comment_count;
         this.create_time = create_time;
         this.is_current_user_like = is_current_user_like;
+        this.comments = comments || [];
     }
 
+    setDynamicsId(dynamics_id){
+        this.dynamics_id = dynamics_id;
+    }
+    getDynamicsId(){
+        return this.dynamics_id;
+    }
     setUserId(user_id){
         this.user_id = user_id;
     }
@@ -85,6 +93,12 @@ class DynamicsEntity{
     }
     getIsCurrentUserLike(){
         return this.is_current_user_like;
+    }
+    setComments(comments){
+        this.comments = comments;
+    }
+    getComments(){
+        return this.comments;
     }
     
 }

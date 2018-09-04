@@ -1,6 +1,7 @@
 const dynamicsService = require('../services/dynamics/index')
 const userService = require('../services/user/index')
 const likeService = require('../services/like/index')
+const commentService = require('../services/comment/index')
 const Dynamics = require('../models/Dynamics')
 const DynamicsEntity = require('../entities/Dynamics')
 const Result = require('../common/_result')
@@ -15,7 +16,8 @@ dynamics.findAllDynamics = async (ctx) => {
             if(ctx.session.user_id){
                 is_current_user_like = await likeService.findLikeByDynamicsIdAndUserId(dynamics.dynamics_id,ctx.session.user_id)
             }
-            const _dynamics = await generateDynamics(res[0], dynamics,is_current_user_like)
+            const comments = await commentService.findCommentByDynamicsId(dynamics.dynamics_id)
+            const _dynamics = await generateDynamics(res[0], dynamics,is_current_user_like,comments)
             dynamicsList.push(_dynamics)
         })
     }
@@ -24,8 +26,9 @@ dynamics.findAllDynamics = async (ctx) => {
 }
 
 
-const generateDynamics = async (user, dynamics,is_current_user_like) => {
+const generateDynamics = async (user, dynamics,is_current_user_like,comments) => {
     let dynamicsEntity = new DynamicsEntity();
+    dynamicsEntity.setDynamicsId(dynamics.dynamics_id)
     dynamicsEntity.setUserId(user.user_id)
     dynamicsEntity.setUserName(user.user_name)
     dynamicsEntity.setMotto(user.motto)
@@ -38,6 +41,7 @@ const generateDynamics = async (user, dynamics,is_current_user_like) => {
     dynamicsEntity.setCommentCount(dynamics.comment_count)
     dynamicsEntity.setCreateTime(dynamics.create_time)
     dynamicsEntity.setIsCurrentUserLike(is_current_user_like)
+    dynamicsEntity.setComments(comments)
     return dynamicsEntity
 }
 dynamics.insertDynamics = async (ctx) => {
