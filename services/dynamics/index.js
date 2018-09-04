@@ -1,4 +1,4 @@
 const dynamics = {};
-dynamics.getAllDynamics = require('./getAllDynamics')
+dynamics.findAllDynamics = require('./findAllDynamics')
 dynamics.insertDynamics = require('./insertDynamics')
 module.exports = dynamics

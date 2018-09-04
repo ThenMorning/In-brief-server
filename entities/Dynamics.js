@@ -1,5 +1,5 @@
 class DynamicsEntity{
-    constructor(user_id,user_name,motto,avatar_url,gender,content,like_count,unlike_count,comment_count,location,create_time){
+    constructor(user_id,user_name,motto,avatar_url,gender,content,like_count,unlike_count,comment_count,location,create_time,is_current_user_like){
         this.user_id = user_id;
         this.user_name = user_name;
         this.motto = motto;
@@ -10,6 +10,8 @@ class DynamicsEntity{
         this.like_count = like_count;
         this.unlike_count = unlike_count;
         this.comment_count = comment_count;
+        this.create_time = create_time;
+        this.is_current_user_like = is_current_user_like;
     }
 
     setUserId(user_id){
@@ -77,6 +79,12 @@ class DynamicsEntity{
     }
     getCreateTime(){
         return this.create_time;
+    }
+    setIsCurrentUserLike(is_current_user_like){
+        this.is_current_user_like = is_current_user_like;
+    }
+    getIsCurrentUserLike(){
+        return this.is_current_user_like;
     }
     
 }

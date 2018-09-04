@@ -1,15 +1,21 @@
 const dynamicsService = require('../services/dynamics/index')
 const userService = require('../services/user/index')
+const likeService = require('../services/like/index')
 const Dynamics = require('../models/Dynamics')
 const DynamicsEntity = require('../entities/Dynamics')
 const Result = require('../common/_result')
 const dynamics = {};
-dynamics.getAllDynamics = async (ctx) => {
-    let allDynamics = await dynamicsService.getAllDynamics()
+dynamics.findAllDynamics = async (ctx) => {
+    let allDynamics = await dynamicsService.findAllDynamics()
     let dynamicsList = []
     for (let dynamics of allDynamics) {
         await userService.findUserByUserId(dynamics.user_id).then(async (res) => {
-            const _dynamics = await generateDynamics(res[0], dynamics)
+            // 判断当前用户是否点赞了该动态
+            var is_current_user_like = 0;
+            if(ctx.session.user_id){
+                is_current_user_like = await likeService.findLikeByDynamicsIdAndUserId(dynamics.dynamics_id,ctx.session.user_id)
+            }
+            const _dynamics = await generateDynamics(res[0], dynamics,is_current_user_like)
             dynamicsList.push(_dynamics)
         })
     }
@@ -18,7 +24,7 @@ dynamics.getAllDynamics = async (ctx) => {
 }
 
 
-const generateDynamics = async (user, dynamics) => {
+const generateDynamics = async (user, dynamics,is_current_user_like) => {
     let dynamicsEntity = new DynamicsEntity();
     dynamicsEntity.setUserId(user.user_id)
     dynamicsEntity.setUserName(user.user_name)
@@ -31,6 +37,7 @@ const generateDynamics = async (user, dynamics) => {
     dynamicsEntity.setUnlikeCount(dynamics.unlike_count)
     dynamicsEntity.setCommentCount(dynamics.comment_count)
     dynamicsEntity.setCreateTime(dynamics.create_time)
+    dynamicsEntity.setIsCurrentUserLike(is_current_user_like)
     return dynamicsEntity
 }
 dynamics.insertDynamics = async (ctx) => {

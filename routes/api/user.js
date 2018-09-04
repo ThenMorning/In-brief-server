@@ -3,5 +3,6 @@ const user = require('../../controllers/user')
 
 
 router.post('/', user.findUserByOpenId)
+router.get('/', user.findUserByUserId)
 
 module.exports = router

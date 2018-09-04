@@ -10,7 +10,6 @@ user.findUserByOpenId = async (ctx) => {
   let user_id;
   let queryResult = await userService.findUserByOpenId(open_id);
   if (queryResult.length) {
-    ctx.body = queryResult;
     const result = new Result(1, queryResult, '')
     ctx.body = result
     user_id = queryResult[0].user_id;
@@ -33,6 +32,18 @@ user.findUserByOpenId = async (ctx) => {
     }
   }
   if(user_id) ctx.session.user_id = user_id;
+}
+user.findUserByUserId = async (ctx) => {
+  let queryResult = await userService.findUserByUserId(ctx.query.user_id);
+  console.log(queryResult)
+  if(queryResult.length){
+    const result = new Result(1, queryResult, '')
+    ctx.body = result
+    user_id = queryResult[0].user_id;
+  }else{
+    const result = new Result(0, {}, '登陆失效，请重新登陆!')
+    ctx.body = result
+  }
 }
 
 module.exports = user
