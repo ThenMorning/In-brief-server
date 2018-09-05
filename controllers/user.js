@@ -35,7 +35,6 @@ user.findUserByOpenId = async (ctx) => {
 }
 user.findUserByUserId = async (ctx) => {
   let queryResult = await userService.findUserByUserId(ctx.query.user_id);
-  console.log(queryResult)
   if(queryResult.length){
     const result = new Result(1, queryResult, '')
     ctx.body = result
