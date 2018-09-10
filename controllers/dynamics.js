@@ -17,6 +17,9 @@ dynamics.findDynamics = async (ctx) => {
                 is_current_user_like = await likeService.findLikeByDynamicsIdAndUserId(dynamics.dynamics_id, ctx.session.user_id)
             }
             const comments = await commentService.findCommentByDynamicsId(dynamics.dynamics_id,JSON.stringify(ctx.query) === '{}')
+            comments.map((comment)=>{
+                comment.create_time = new Date(comment.create_time).toLocaleString()
+            })
             let dynamicsEntity = new DynamicsEntity(dynamics.dynamics_id,res[0].user_id,res[0].user_name,res[0].motto,res[0].avatar_url,res[0].gender,dynamics.content,dynamics.like_count,dynamics.unlike_count,dynamics.comment_count,dynamics.location,new Date(dynamics.create_time).toLocaleString(),is_current_user_like,comments);
             dynamicsList.push(dynamicsEntity)
         })
