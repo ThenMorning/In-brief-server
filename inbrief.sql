@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 80011
 File Encoding         : 65001
 
-Date: 2018-09-05 19:57:46
+Date: 2018-09-10 20:52:12
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -20,7 +20,7 @@ SET FOREIGN_KEY_CHECKS=0;
 -- ----------------------------
 DROP TABLE IF EXISTS `comment`;
 CREATE TABLE `comment` (
-  `comment_id` bigint(20) NOT NULL,
+  `comment_id` bigint(20) NOT NULL AUTO_INCREMENT,
   `dynamics_id` bigint(20) NOT NULL,
   `user_id` bigint(20) NOT NULL,
   `content` varchar(255) NOT NULL,
@@ -28,13 +28,32 @@ CREATE TABLE `comment` (
   `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `user_name` varchar(255) NOT NULL,
   PRIMARY KEY (`comment_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- ----------------------------
 -- Records of comment
 -- ----------------------------
 INSERT INTO `comment` VALUES ('1', '2', '12313', '哈哈哈哈', '2018-09-04 21:42:11', '2018-09-04 21:42:11', 'winward');
 INSERT INTO `comment` VALUES ('2', '2', '12313', 'heihih', '2018-09-05 15:48:09', '2018-09-05 15:48:13', 'winward');
+INSERT INTO `comment` VALUES ('3', '39', '12313', '有病吧', '2018-09-10 17:33:44', '2018-09-10 17:33:44', 'Winward');
+INSERT INTO `comment` VALUES ('4', '39', '12313', '有病吧', '2018-09-10 17:34:18', '2018-09-10 17:34:18', 'Winward');
+INSERT INTO `comment` VALUES ('5', '39', '12313', '你好', '2018-09-10 18:30:15', '2018-09-10 18:30:15', 'Winward');
+INSERT INTO `comment` VALUES ('6', '39', '12313', '', '2018-09-10 18:48:48', '2018-09-10 18:48:48', 'Winward');
+INSERT INTO `comment` VALUES ('7', '39', '12313', '', '2018-09-10 18:49:23', '2018-09-10 18:49:23', 'Winward');
+INSERT INTO `comment` VALUES ('8', '39', '12313', '', '2018-09-10 18:49:25', '2018-09-10 18:49:25', 'Winward');
+INSERT INTO `comment` VALUES ('9', '39', '12313', '切', '2018-09-10 20:26:03', '2018-09-10 20:26:03', 'Winward');
+INSERT INTO `comment` VALUES ('10', '39', '12313', '哈哈哈', '2018-09-10 20:34:15', '2018-09-10 20:34:15', 'Winward');
+INSERT INTO `comment` VALUES ('11', '39', '12313', '哈哈哈', '2018-09-10 20:34:42', '2018-09-10 20:34:42', 'Winward');
+INSERT INTO `comment` VALUES ('12', '39', '12313', '啦啦啦', '2018-09-10 20:38:40', '2018-09-10 20:38:40', 'Winward');
+INSERT INTO `comment` VALUES ('13', '39', '12313', '公共卫生组织上', '2018-09-10 20:40:10', '2018-09-10 20:40:10', 'Winward');
+INSERT INTO `comment` VALUES ('14', '39', '12313', '呵呵', '2018-09-10 20:42:14', '2018-09-10 20:42:14', 'Winward');
+INSERT INTO `comment` VALUES ('15', '39', '12313', '呵呵', '2018-09-10 20:42:26', '2018-09-10 20:42:26', 'Winward');
+INSERT INTO `comment` VALUES ('16', '39', '12313', '大尾巴', '2018-09-10 20:43:17', '2018-09-10 20:43:17', 'Winward');
+INSERT INTO `comment` VALUES ('17', '39', '12313', '测试', '2018-09-10 20:44:21', '2018-09-10 20:44:21', 'Winward');
+INSERT INTO `comment` VALUES ('18', '39', '12313', 't', '2018-09-10 20:45:37', '2018-09-10 20:45:37', 'Winward');
+INSERT INTO `comment` VALUES ('19', '39', '12313', '公共你哦公共你哦！', '2018-09-10 20:46:10', '2018-09-10 20:46:10', 'Winward');
+INSERT INTO `comment` VALUES ('20', '39', '12313', '你妹', '2018-09-10 20:47:17', '2018-09-10 20:47:17', 'Winward');
+INSERT INTO `comment` VALUES ('21', '39', '12313', '呵呵呵', '2018-09-10 20:48:13', '2018-09-10 20:48:13', 'Winward');
 
 -- ----------------------------
 -- Table structure for `dynamics`
@@ -50,7 +69,7 @@ CREATE TABLE `dynamics` (
   `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`dynamics_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=39 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=40 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of dynamics
@@ -91,7 +110,8 @@ INSERT INTO `dynamics` VALUES ('34', '12313', '123123123', '0', '0', '0', '2018-
 INSERT INTO `dynamics` VALUES ('35', '12313', '123123', '0', '0', '0', '2018-09-05 11:51:46', '2018-09-05 11:51:46');
 INSERT INTO `dynamics` VALUES ('36', '12313', '123123', '0', '0', '0', '2018-09-05 11:56:10', '2018-09-05 12:24:58');
 INSERT INTO `dynamics` VALUES ('37', '12313', '123123', '0', '0', '0', '2018-09-05 12:02:28', '2018-09-05 17:59:16');
-INSERT INTO `dynamics` VALUES ('38', '12313', '1231', '0', '0', '0', '2018-09-05 14:25:48', '2018-09-05 17:59:02');
+INSERT INTO `dynamics` VALUES ('38', '12313', '1231', '0', '0', '0', '2018-09-05 14:25:48', '2018-09-06 17:29:19');
+INSERT INTO `dynamics` VALUES ('39', '12313', '哈哈哈此地', '0', '0', '0', '2018-09-10 17:25:50', '2018-09-10 17:25:50');
 
 -- ----------------------------
 -- Table structure for `likes`
@@ -105,7 +125,7 @@ CREATE TABLE `likes` (
   `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `user_name` varchar(255) NOT NULL,
   PRIMARY KEY (`like_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=43 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=45 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- ----------------------------
 -- Records of likes
@@ -196,5 +216,6 @@ INSERT INTO `_mysql_session_store` VALUES ('SESSION_ID:xJh_hLYWapryAXyawhhnuIQIe
 INSERT INTO `_mysql_session_store` VALUES ('SESSION_ID:xjj1xuNiQyox57GMLMbYa4asuWCx9LbV', '1536042748229', '{\"user_id\":12313}');
 INSERT INTO `_mysql_session_store` VALUES ('SESSION_ID:YA-QiZmf48vhrIR2UcI-15qQ5F17xz3n', '1536051485355', '{\"user_id\":12313}');
 INSERT INTO `_mysql_session_store` VALUES ('SESSION_ID:yn_Bmhl--aChGTbPkIq-QR52lb03y1wt', '1536042671710', '{\"user_id\":12313}');
+INSERT INTO `_mysql_session_store` VALUES ('SESSION_ID:ysqb6CNriyYyplg_K6EnFcpEWMwdHSY_', '1536226117830', '{\"user_id\":12313}');
 INSERT INTO `_mysql_session_store` VALUES ('SESSION_ID:zbMhgTY67xzWW1puql2Fl0Mp8I2LzNc8', '1536039888019', '{\"user_id\":12313}');
 INSERT INTO `_mysql_session_store` VALUES ('SESSION_ID:zTLN3S3w1EFHx0H4jFil5qAiAjMEVQZP', '1536040730391', '{\"user_id\":12313}');
