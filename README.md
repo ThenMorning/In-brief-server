@@ -36,7 +36,7 @@ npm start
 * controller 作为控制器回应请求，调用不同的service，拼凑出view想要的数据结构
 * service 作为服务，操作数据库，获得数据
 
-< 在此之外，
+`在此之外，`
 * 创建model对应数据库表实体，
 * 创建entities对应view展示的数据结构
 * 创建result作为response规范
